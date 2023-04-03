@@ -1,0 +1,29 @@
+{
+  "name": "typejs6",
+  "private": true,
+  "version": "0.1.0",
+  "main": "type.js",
+  "keywords": [
+    "type",
+    "types",
+    "typejs-2015",
+    "typejs",
+    "typeof",
+    "type-of",
+    "typeis",
+    "is",
+    "type-tools"
+  ],
+  "author": {
+    "name": "yijian.song",
+    "url": "https://github.com/songyijian"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.2.0"
+  }
+}
