@@ -2,8 +2,6 @@
 
 js 数据类型检查，支持自定义类。其中使用了 es6 技术，对低版本 js 有要求的请慎用。
 
-> 注意：使用脚手架会压缩自定义类标准 name，因此需要使用 typeTag 标记类型，否者 type 会输出`warn`提示。如果确认不存在 bulid 压缩的情况完全可以忽略控制台的提示。
-
 ## Installation
 
 ```shell
@@ -36,12 +34,11 @@ type(new WeakSet()); // "WeakSet "
 type(Symbol()); // "Symbol "
 type(new ArrayBuffer(32)); // "ArrayBuffer"
 type(new DataView(buf)); // "DataView"
-// ....
 ```
 
 ### type.is...
 
-type.is{Type}(value) > string
+type.is{Type}(value) > Boolean
 
 ```js
 import { type, typeTag } from "typejs6";
@@ -71,15 +68,28 @@ type.isDataView(new DataView(new ArrayBuffer(32))); // true
 // .....
 ```
 
+### type.configWarn = true ｜？
+
+脚手架压缩代码的同时会串改自定义类 name，typejs6 会检查自定义类是否安全并输出`warn`提示。
+确保类型安全可使用 typeTag 标记类型。
+
+如果不存在压缩情况可以关闭提示`type.configWarn=false` 。
+
+```js
+type.configWarn = true; // 默认开启
+
+type.configWarn = false; // 关闭提示
+```
+
 ### typeTag
 
-给自定义类添加数据类型。 也可以手动添加 `get [Symbol.toStringTag](){}` 和 typeTag 效果一样。
+自定义类标记类型，也可以手动添加 `get [Symbol.toStringTag](){}` 和 typeTag 效果一样。
 
 ```js
 import { type, typeTag } from "typejs6";
 
 function MyClass() {}
-typeTag(MyClass, "MyClass"); // 添加类型标签
+typeTag(MyClass, "MyClass");
 
 let a = new MyClass();
 type(a); // MyClass

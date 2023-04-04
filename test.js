@@ -1,4 +1,7 @@
 import { type, typeTag } from "./type";
+// import { type, typeTag } from "typejs6";
+
+type.configWarn = false; // 关闭提示
 
 function logType(a) {
   const rtype = type(a);
@@ -62,7 +65,7 @@ class MyClass {
   //   return "MyClass";
   // }
 }
-typeTag(MyClass, "MyClass"); // 添加
+// typeTag(MyClass, "MyClass"); // 添加
 
 let x = new MyClass();
 console.log(type(x)); // MyClass

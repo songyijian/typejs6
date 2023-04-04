@@ -1,3 +1,7 @@
+// 集成属性代理的type函数
+export const type = observe(_type);
+type.configWarn = true;
+
 /**
  * @Description:  判断数据类型
  * @param {*} arg 数据
@@ -8,9 +12,10 @@ function _type(arg) {
   if (typeName == "Object") {
     const flag = arg.constructor.name;
     if (flag !== "Object") {
-      console.warn(
-        `[type]:'${flag}' No attribute label defined. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag`
-      );
+      type.configWarn &&
+        console.warn(
+          `[type]:'${flag}' No attribute label defined. https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag`
+        );
       return flag;
     }
   }
@@ -47,15 +52,11 @@ const isBase = { isFalse, isInteger, isNaN: isNaN };
 function observe(data) {
   return new Proxy(data, {
     get(data, target) {
-      if (target.length < 3 || !target.startsWith("is")) return false;
-      if (isBase[target]) return isBase[target];
-      let t = target.substring("2");
-      return (object) => _type(object) === t;
-
-      // return Reflect.get(target, val);
+      if (target.startsWith("is") && target.length >= 3) {
+        if (isBase[target]) return isBase[target];
+        return (object) => _type(object) === target.substring("2");
+      }
+      return Reflect.get(data, target);
     },
   });
 }
-
-// 集成属性代理的type函数
-export const type = observe(_type);
