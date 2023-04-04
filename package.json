@@ -1,6 +1,6 @@
 {
   "name": "typejs6",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "./type.js",
   "keywords": [
     "type",
@@ -25,9 +25,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^4.2.0"
-  },
-  "dependencies": {
-    "typejs6": "^0.1.0"
+    "vite": "^4.2.0",
+    "typejs6": "^0.2.0"
   }
 }

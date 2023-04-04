@@ -1,7 +1,5 @@
-import { type, typeTag } from "./type";
-// import { type, typeTag } from "typejs6";
-
-type.configWarn = false; // 关闭提示
+// import { type, typeTag } from "./type";
+import { type, typeTag } from "typejs6";
 
 function logType(a) {
   const rtype = type(a);
@@ -59,6 +57,7 @@ isLogType("isDataView", new DataView(new ArrayBuffer(32))); // true
 // .....
 
 // 自定义类 =========
+type.configWarn = false; // 关闭提示
 
 class MyClass {
   // get [Symbol.toStringTag]() {
