@@ -6,6 +6,8 @@ type.configWarn = true;
  * @Description:  判断数据类型
  * @param {*} arg 数据
  * @return {string} 类型 Number、Array、Object ....
+ * @Author: yijian
+ * @Version: 0.1.0
  */
 function _type(arg) {
   const typeName = Object.prototype.toString.call(arg).slice(8, -1);
@@ -21,7 +23,14 @@ function _type(arg) {
   }
   return typeName;
 }
-
+/**
+ * @Description:
+ * @param {*} classObjct
+ * @param {*} className
+ * @return {*}
+ * @Author: yijian
+ * @Version: 0.1.0
+ */
 export function typeTag(classObjct, className) {
   const toStringTag = classObjct.prototype[Symbol.toStringTag];
   if (typeof Symbol !== "undefined" && Symbol.toStringTag && !toStringTag) {
@@ -29,15 +38,23 @@ export function typeTag(classObjct, className) {
   }
 }
 
-//false
-export function isFalse(o) {
-  return (
-    !o || o === "null" || o === "undefined" || o === "false" || o === "NaN"
-  );
+// 假 false
+function isFalse(o) {
+  if (type.isString(o)) return !Boolean(o.trim());
+  return !Boolean(o);
+}
+
+function isEmpty(o) {
+  if (o === 0 || typeof o === "function") return false;
+  if (typeof o === "object") {
+    const box = typeof o[Symbol.iterator] === "function" ? [...o] : { ...o };
+    return Object.keys(box).length === 0;
+  }
+  return isFalse(o);
 }
 
 //整数
-export function isInteger(o) {
+function isInteger(o) {
   try {
     return type(o) === "Number" && o % 1 === 0;
   } catch (e) {
@@ -46,7 +63,7 @@ export function isInteger(o) {
 }
 
 // 自定义判断函数map
-const isBase = { isFalse, isInteger, isNaN: isNaN };
+const isBase = { isFalse, isInteger, isEmpty, isNaN: isNaN };
 
 // 属性代理
 function observe(data) {

@@ -1,5 +1,7 @@
-// import { type, typeTag } from "./type";
+// import { type, typeTag } from "./type.js";
 import { type, typeTag } from "typejs6";
+
+// type.configWarn = false; // 关闭提示
 
 function logType(a) {
   const rtype = type(a);
@@ -34,6 +36,7 @@ function isLogType(isT, a) {
 
 isLogType("isInteger", 100.1); // false
 isLogType("isNaN", NaN); // true
+isLogType("isEmpty", {}); // true
 
 isLogType("isString", "foo"); // true
 isLogType("isArray", [1, 2]); // true
@@ -54,18 +57,10 @@ isLogType("isWeakSet", new WeakSet()); // true
 isLogType("isSymbol", Symbol()); // true
 isLogType("isArrayBuffer", new ArrayBuffer(32)); // true
 isLogType("isDataView", new DataView(new ArrayBuffer(32))); // true
-// .....
 
-// 自定义类 =========
-type.configWarn = false; // 关闭提示
-
-class MyClass {
-  // get [Symbol.toStringTag]() {
-  //   return "MyClass";
-  // }
-}
-// typeTag(MyClass, "MyClass"); // 添加
-
+// 自定义类
+class MyClass {}
+typeTag(MyClass, "MyClass"); // 添加
 let x = new MyClass();
 console.log(type(x)); // MyClass
 console.log(type.isMyClass(x)); // true

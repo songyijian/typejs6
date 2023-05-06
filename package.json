@@ -1,7 +1,9 @@
 {
   "name": "typejs6",
-  "version": "0.2.1",
-  "main": "./type.js",
+  "version": "0.3.0",
+  "main": "./dist/typejs6.js",
+  "module": "./dist/typejs6.mjs",
+  "description": "一个简单的类型判断工具",
   "keywords": [
     "type",
     "types",
@@ -25,7 +27,6 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^4.2.0",
-    "typejs6": "^0.2.0"
+    "vite": "^4.2.0"
   }
 }

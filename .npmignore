@@ -4,10 +4,11 @@
 .gitignore
 *.log
 *.md
+vite.config.js
 
 node_modules/
 build/
-dist/*
+dist/index.html
 
 test.js
 index.html

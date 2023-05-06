@@ -1,6 +1,6 @@
 # typejs6
 
-js 数据类型检查，支持自定义类。其中使用了 es6 技术，对低版本 js 有要求的请慎用。
+> js 数据类型检查，支持自定义类。其中使用了 es6 技术，对低版本 js 有要求的请慎用。
 
 ## Installation
 
@@ -9,6 +9,18 @@ npm install typejs6
 ```
 
 ## API
+
+### type.configWarn = true ｜？
+
+脚手架压缩代码的同时会串改自定义类 name，typejs6 会检查自定义类是否安全并输出`warn`提示。
+确保类型安全可使用 typeTag 标记类型。
+
+如果不存在压缩情况可以关闭提示`type.configWarn=false` 。
+
+```js
+type.configWarn = true; // 默认开启
+type.configWarn = false; // 关闭提示
+```
 
 ### type
 
@@ -44,9 +56,10 @@ type.is{Type}(value) > Boolean
 import { type, typeTag } from "typejs6";
 
 // 常用工具扩展
-type.isNaN(NaN); //  true
-type.isFalse(NaN | null | undefined | false | NaN); //  true
 type.isInteger(100.1); // false
+type.isNaN(NaN); //  true
+type.isFalse(" " | 0 | NaN | null | undefined | false); //  true
+type.isEmpty({} | [] | set | map | isFalse()); // true; 不支持DOM & 0=fasle
 
 // js内置对象&自定义对象
 type.isString("foo"); // true
@@ -66,19 +79,6 @@ type.isSymbol(Symbol()); // true
 type.isArrayBuffer(new ArrayBuffer(32)); // true
 type.isDataView(new DataView(new ArrayBuffer(32))); // true
 // .....
-```
-
-### type.configWarn = true ｜？
-
-脚手架压缩代码的同时会串改自定义类 name，typejs6 会检查自定义类是否安全并输出`warn`提示。
-确保类型安全可使用 typeTag 标记类型。
-
-如果不存在压缩情况可以关闭提示`type.configWarn=false` 。
-
-```js
-type.configWarn = true; // 默认开启
-
-type.configWarn = false; // 关闭提示
 ```
 
 ### typeTag
@@ -102,3 +102,11 @@ class MyClass {
   }
 }
 ```
+
+## version
+
+- 0.3.0
+
+  - 支持同时支持 es、cjs
+  - isFalse 支持对无字符 string
+  - isEmpty 支持空对象判断， 不支持 DOM & 0=fasle
