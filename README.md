@@ -23,13 +23,12 @@ npm install typejs6
 
 ### type.configWarn
 
-代码压缩混淆会串改 class 名称。typejs6 会检查类型安全并输出`warn`提示。
+代码压缩混淆会串改 class 名称。typejs6 会检查类型安全,并输出`warn`提示。
 
 您可以使用`typeTag`修复漏洞，如果你确认安全可全局忽略该警告。
 
 ```js
-//关闭提示
-type.configWarn = false;
+type.configWarn = false; //关闭提示
 ```
 
 ### type
