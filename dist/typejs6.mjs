@@ -18,23 +18,25 @@ function a(t, n) {
 function c(t) {
   return r.isString(t) ? !t.trim() : !t;
 }
-function s(t) {
+function u(t) {
   if (t === 0 || typeof t == "function")
     return !1;
   if (typeof t == "object") {
+    if (t === null)
+      return !0;
     const n = typeof t[Symbol.iterator] == "function" ? [...t] : { ...t };
     return Object.keys(n).length === 0;
   }
   return c(t);
 }
-function u(t) {
+function s(t) {
   try {
     return r(t) === "Number" && t % 1 === 0;
   } catch {
     return !1;
   }
 }
-const o = { isFalse: c, isInteger: u, isEmpty: s, isNaN };
+const o = { isFalse: c, isInteger: s, isEmpty: u, isNaN };
 function l(t) {
   return new Proxy(t, {
     get(n, e) {

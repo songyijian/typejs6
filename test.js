@@ -1,5 +1,5 @@
-import { type, typeTag } from "./type.js";
-// import { type, typeTag } from "typejs6";
+// import { type, typeTag } from "./type.js";
+import { type, typeTag } from "typejs6";
 
 // type.configWarn = false; // 关闭提示
 
@@ -36,7 +36,7 @@ function isLogType(isT, a) {
 
 isLogType("isInteger", 100.1); // false
 isLogType("isNaN", NaN); // true
-isLogType("isEmpty", new Set([])); // true
+isLogType("isEmpty", null); // true
 
 isLogType("isString", "foo"); // true
 isLogType("isArray", [1, 2]); // true

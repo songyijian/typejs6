@@ -11,7 +11,11 @@
   - isEmpty 支持空对象判断。注意：不支持 DOM , 0=fasle
 
 - 0.3.1
+
   - fix: isEmpty 对于 null 判断异常
+
+- 0.3.1
+  - fix: 补包
 
 ## Installation
 
