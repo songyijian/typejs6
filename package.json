@@ -21,6 +21,9 @@
     "name": "yijian.song",
     "url": "https://github.com/songyijian"
   },
+  "bugs": {
+    "url": " https://github.com/songyijian/typejs6/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
