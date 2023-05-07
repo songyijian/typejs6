@@ -47,6 +47,7 @@ function isFalse(o) {
 function isEmpty(o) {
   if (o === 0 || typeof o === "function") return false;
   if (typeof o === "object") {
+    if (o === null) return true;
     const box = typeof o[Symbol.iterator] === "function" ? [...o] : { ...o };
     return Object.keys(box).length === 0;
   }

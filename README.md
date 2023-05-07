@@ -1,6 +1,17 @@
 # typejs6
 
-> js 数据类型检查，支持自定义类。其中使用了 es6 技术，对低版本 js 有要求的请慎用。
+> js 数据类型检查支持自定义类。
+
+## version
+
+- 0.3.0
+
+  - 同时支持 es、cjs
+  - isFalse 支持对无字符 string 判断
+  - isEmpty 支持空对象判断。注意：不支持 DOM , 0=fasle
+
+- 0.3.1
+  - fix: isEmpty 对于 null 判断异常
 
 ## Installation
 
@@ -10,16 +21,15 @@ npm install typejs6
 
 ## API
 
-### type.configWarn = true ｜？
+### type.configWarn
 
-脚手架压缩代码的同时会串改自定义类 name，typejs6 会检查自定义类是否安全并输出`warn`提示。
-确保类型安全可使用 typeTag 标记类型。
+代码压缩混淆会串改 class 名称。typejs6 会检查类型安全并输出`warn`提示。
 
-如果不存在压缩情况可以关闭提示`type.configWarn=false` 。
+您可以使用`typeTag`修复漏洞，如果你确认安全可全局忽略该警告。
 
 ```js
-type.configWarn = true; // 默认开启
-type.configWarn = false; // 关闭提示
+//关闭提示
+type.configWarn = false;
 ```
 
 ### type
@@ -29,7 +39,7 @@ type(value) >String
 ```js
 import { type, typeTag } from "typejs6";
 
-// js内置对象&自定义对象
+// js内置对象 & 自定义对象
 type("foo"); // "String"
 type([1, 2]); // "Array"
 type(3); // "Number"
@@ -44,8 +54,8 @@ type(new Set()); // "Set "
 type(new WeakMap()); // "WeakMap "
 type(new WeakSet()); // "WeakSet "
 type(Symbol()); // "Symbol "
-type(new ArrayBuffer(32)); // "ArrayBuffer"
-type(new DataView(buf)); // "DataView"
+...
+
 ```
 
 ### type.is...
@@ -55,13 +65,13 @@ type.is{Type}(value) > Boolean
 ```js
 import { type, typeTag } from "typejs6";
 
-// 常用工具扩展
+// 扩展
 type.isInteger(100.1); // false
 type.isNaN(NaN); //  true
-type.isFalse(" " | 0 | NaN | null | undefined | false); //  true
-type.isEmpty({} | [] | set | map | isFalse()); // true; 不支持DOM & 0=fasle
+type.isFalse(" "|0|NaN|null|undefined|false); //  true
+type.isEmpty({}|[]|set|map|isFalse()); // true; 注意：0=fasle,不支持DOM
 
-// js内置对象&自定义对象
+// js内置对象 & 自定义对象
 type.isString("foo"); // true
 type.isArray([1, 2]); // true
 type.isNumber(3); // true
@@ -78,12 +88,12 @@ type.isWeakSet(new WeakSet()); // true
 type.isSymbol(Symbol()); // true
 type.isArrayBuffer(new ArrayBuffer(32)); // true
 type.isDataView(new DataView(new ArrayBuffer(32))); // true
-// .....
+...
 ```
 
 ### typeTag
 
-自定义类标记类型，也可以手动添加 `get [Symbol.toStringTag](){}` 和 typeTag 效果一样。
+使用 typeTag 标记类型，保证混淆代码下的类型安全
 
 ```js
 import { type, typeTag } from "typejs6";
@@ -92,21 +102,17 @@ function MyClass() {}
 typeTag(MyClass, "MyClass");
 
 let a = new MyClass();
+
 type(a); // MyClass
 type.isMyClass(a); // true
+```
 
-// 手动添加，效果同typeTag
+也可以手动添加 `get [Symbol.toStringTag](){}` 和 typeTag 效果一样。
+
+```js
 class MyClass {
   get [Symbol.toStringTag]() {
     return "MyClass";
   }
 }
 ```
-
-## version
-
-- 0.3.0
-
-  - 支持同时支持 es、cjs
-  - isFalse 支持对无字符 string
-  - isEmpty 支持空对象判断， 不支持 DOM & 0=fasle
